@@ -5,41 +5,34 @@ Update this file to implement the following already declared methods:
 - get_member: Should return a member from the self._members list
 """
 
-class FamilyStructure:
-    def __init__(self, last_name):
-        self.last_name = last_name
-        self._next_id = 1
-        self._members = [
-            {
-                "id": self._generate_id(),
-                "first_name": "John",
-                "last_name": last_name,
-                "age": 33,
-                "lucky_numbers": [7, 13, 22]
-            }
-        ]
+from random import randint  
 
-    # This method generates a unique incremental ID
-    def _generate_id(self):
-        generated_id = self._next_id
-        self._next_id += 1
-        return generated_id
 
-    def add_member(self, member):
-        ## You have to implement this method
-        ## Append the member to the list of _members
-        pass
+class FamilyStructure:  # Declares the family structure class.
+    def __init__(self, last_name: str, initial_members: list = []):  # Constructor.
+        self.last_name = last_name  # Stores the last name.
+        self._members = []  # Initializes the internal members list.
 
-    def delete_member(self, id):
-        ## You have to implement this method
-        ## Loop the list and delete the member with the given id
-        pass
+        for member in initial_members:  # Iterates initial members.
+            self.add_member(member)  # Adds each member using the method.
 
-    def get_member(self, id):
-        ## You have to implement this method
-        ## Loop all the members and return the one with the given id
-        pass
+    # Add a new member to the family
+    def add_member(self, member):  # Receives a member dictionary.
+        self._members.append(member)  # Adds it to the internal list.
 
-    # This method is done, it returns a list with all the family members
-    def get_all_members(self):
-        return self._members
+    # Delete a member from the family by ID
+    def delete_member(self, id):  # Receives the id to delete.
+        self._members = [member for member in self._members if member["id"] != id]  # Filters the list.
+
+    # Get a specific member by ID
+    def get_member(self, id: int):  # Receives the id to find.
+        for member in self._members:  # Iterates members.
+            if member["id"] == id:  # Checks id match.
+                return member  # Returns the found member.
+        return None  # Returns None if not found.
+
+    # Get all members of the family
+    def get_all_members(self):  # Returns all members.
+        return self._members  # Returns the full list.
+
+    
